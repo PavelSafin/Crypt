@@ -394,6 +394,3 @@ void crypt(vector<int> &block, vector< vector<int> > &keys)
     merge(left, right, block, 32);
     final_permutation(block);
 }
-
-
-    
