@@ -5,28 +5,32 @@ import sys
 from time import time, sleep
 
 def read_template (path):
+	#Открываем файл для чтения
 	os.chmod(path + '/template.tbl', stat.S_IRWXU)	
 	sys.stdin = open('template.tbl', 'r')
 	
+	#Получаем всё файлы в данной директории
 	tree = os.walk(path) 
 	dir_files = []
 	for d, dirs, files in tree:
 		for f in files:
 			dir_files.append(f)
 
-	file_list = []
+	#Считываем список файлов которые у которых нужно изменить режим доступа
 	my_hash = input()
 	n = int(input())
-
+	file_list = []
 	for i in range(n):
 	    file_list.append(input())
 
+	#Изменяем режим чтобы нельзя было удалить или изменить файл
 	os.chmod(path + '/template.tbl', stat.S_ENFMT)
 
 	return my_hash, file_list, dir_files
 
 
 def change_mode_file (path, file_list, dir_files, mode):
+	#Проверяем на совпадение файлы в директории и если совпали, то изменяем режим
 	for file in dir_files:
 		for i in file_list:
 			if file == i:
@@ -44,7 +48,9 @@ def unlock_file(path, password):
 
 
 def main ():
+	#Имя текущей директории
 	path = os.getcwd()
+
 	mode = input('lock/unlock file?\n')
 
 	if mode == 'lock':
