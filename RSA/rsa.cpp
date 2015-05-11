@@ -3,8 +3,7 @@
 
 using namespace std;
 
-void itoa (vector<int> &v, int n)
-{
+void itoa (vector<int> &v, int n) {
 	while(n != 0) {
 		v.push_back(n & 1);
 		n >>= 1;
@@ -13,24 +12,12 @@ void itoa (vector<int> &v, int n)
 	reverse(v.begin(), v.end());
 }
 
-bool witness (int a, int p)
-{
+bool witness (int a, int p) {
 	vector<int> bin_p;
 	itoa(bin_p, p - 1);
-	
-
-	// int sp = sqrt(p);
-	// int i = 2;
-	// while(i <= sp) 
-	// {
-	// 	if (p % i == 0)
-	// 		return false;
-	// 	++i;
-	// }
 
 	int d = 1;
-	for (int i = bin_p.size() - 1; i >= 0; --i)
-	{
+	for (int i = bin_p.size() - 1; i >= 0; --i) {
 		int x = d;
 		d = (d * d) % p;
 		
@@ -47,8 +34,7 @@ bool witness (int a, int p)
 	return false;
 }
 
-bool miller_rabin (int p, int s)
-{
+bool miller_rabin (int p, int s) {
 	for (int j = 0; j < s; ++j)
 	{
 		int a = (rand() % (p - 1)) + 1;
@@ -58,8 +44,7 @@ bool miller_rabin (int p, int s)
 	return true;
 }
 
-int get_prime ()
-{
+int get_prime () {
 	while(true) 
 	{
     	int p = rand() % INT32_MAX;
@@ -68,8 +53,7 @@ int get_prime ()
     }
 }
 
-int gcd (int a, int b, int &x, int & y) 
-{
+int gcd (int a, int b, int &x, int & y) {
 	if (!a) 
 	{
 		x = 0; y = 1;
@@ -84,8 +68,7 @@ int gcd (int a, int b, int &x, int & y)
 	return d;
 }
 
-int pow (long long x, long long pw, long long mod)
-{
+int pow (long long x, long long pw, long long mod) {
 	vector<int> binary;
 	itoa(binary, pw);
 
@@ -96,13 +79,11 @@ int pow (long long x, long long pw, long long mod)
 	return t;
 }
 
-int euler_function(int p, int q)
-{
+int euler_function(int p, int q) {
 	return (p - 1) * (q - 1);
 }
 
-int main()
-{
+int main() {
     freopen("rsa.in", "r", stdin);
     freopen("rsa.out", "w", stdout);
 
@@ -118,8 +99,7 @@ int main()
  	int y;
 
  	int nod = gcd(e, phi, d, y);
- 	if (nod != 1) 
- 	{
+ 	if (nod != 1)  {
  		cout << "error";
  		return 0;
  	}
