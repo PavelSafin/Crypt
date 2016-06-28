@@ -4,26 +4,24 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     freopen("des.in", "r", stdin);
     freopen("des.out", "w", stdout);
 
-    vector < vector <int> > keys (17);
+    vector<vector<int> > keys(17);
+    vector< vector <int> > cryptBlock;
     generate_keys(keys);
 
     string message = "", temp;
     while (cin >> temp) message += temp;
-    while(message.size() % 8) message += " ";
+    while (message.size() % 8) message += " ";
 
-    if (MODE == "decrypt")
-    {
+    if (MODE == "decrypt") {
         reverse(keys.begin() + 1, keys.end());
     }
 
-    for (int i = 0; i < message.size(); i += 8)
-    {
-        vector <int> block (64);
+    for (int i = 0; i < message.size(); i += 8) {
+        vector<int> block(64);
 
         char_to_bin_vector(message[i], block, 7);
         char_to_bin_vector(message[i + 1], block, 15);
@@ -36,10 +34,33 @@ int main()
 
         crypt(block, keys);
 
-        for (int i = 0; i < 64; i += 8) {
+        cryptBlock.push_back(block);
 
-            vector <int> t;
-            for (int j = i; j < i + 8; ++j) {
+        for (int q = 0; q < 64; q += 8) {
+
+            vector<int> t;
+            for (int j = q; j < q + 8; ++j) {
+                t.push_back(block[j]);
+            }
+            //vector <int> t (block.begin() + i, block.begin() + i + 8);
+
+            cout << char(bin_vector_to_char(t));
+        }
+    }
+
+    cout << endl;
+
+    reverse(keys.begin() + 1, keys.end());
+
+    for (int i = 0; i < cryptBlock.size(); ++i) {
+        vector<int> block = cryptBlock[i];
+
+        crypt(block, keys);
+
+        for (int q = 0; q < 64; q += 8) {
+
+            vector<int> t;
+            for (int j = q; j < q + 8; ++j) {
                 t.push_back(block[j]);
             }
             //vector <int> t (block.begin() + i, block.begin() + i + 8);
