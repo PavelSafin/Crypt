@@ -4,6 +4,18 @@
 
 using namespace std;
 
+void DES::set_message(string &message) {
+    this->message = message;
+}
+
+std::string DES::get_message() {
+    return this->message;
+}
+
+void DES::set_key(std::string &key) {
+    this->key = key;
+}
+
 int main() {
     freopen("des.in", "r", stdin);
     freopen("des.out", "w", stdout);

@@ -4,6 +4,22 @@
 
 using namespace std;
 
+class DES {
+public:
+    void set_message(std::string &message);
+
+    std::string get_message();
+
+    void set_key(std::string &key);
+
+    std::string encode_message();
+
+    std::string decode_message();
+private:
+    std::string message;
+    std::string key;
+};
+
 void split(vector<int> &left, vector<int> &right, vector<int> &target, int size) {
     for (int i = 0; i < size; ++i) {
         left[i] = target[i + size];
