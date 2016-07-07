@@ -1,9 +1,11 @@
 #include "DES.h"
 
 DES::DES(string &key) {
-    this->key = key;
+    set_key(key);
     generate_keys();
 }
+
+DES::DES() { }
 
 void DES::set_message(string &message) {
     this->message = message;
@@ -775,7 +777,7 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
 }
 
 string DES::encode_message() {
-    vector <char> en_message;
+    vector<char> en_message;
 
     for (int i = 0; i < this->message.size(); i += 8) {
         vector<int> block(64);

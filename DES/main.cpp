@@ -6,18 +6,36 @@ int main() {
     string key;
     string message;
 
-    std::cout << "Please enter message" << std::endl;
-    std::cin >> message;
+    while (true) {
+        cout << ">>> ";
+        string command;
+        cin >> command;
 
-    std::cout << "Please enter key (64-bit number)" << std::endl;
-    std::cin >> key;
+        if (command == "exit") {
+            break;
+        } else {
+            if (command == "encode") {
+                cout << "Please enter password (64-bit number)" << std::endl;
+                cin >> key;
 
-//    if (key < ULLONG_MAX && key > 0) {
-        DES des(key);
+                cout << "Please enter message" << std::endl;
+                cin >> message;
 
-        des.set_message(message);
-        cout << des.encode_message() << endl;
-//    } else {
-//        std :: cout << "Invalid number" << std::endl;
-//    }
+                DES des(key);
+                des.set_message(message);
+
+                cout << des.encode_message() << endl;
+            } else {
+                if (command == "help") {
+                    cout << "encode: Crypt your message" << endl
+                    << "decode: Decrypt your message" << endl
+                    << "exit: Exit from shell" << endl;
+                } else {
+                    cout << "Try type \"help\"";
+                }
+            }
+        }
+    }
+
+    return 0;
 }

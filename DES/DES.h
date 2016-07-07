@@ -7,6 +7,7 @@ using namespace std;
 class DES {
 public:
     DES (string &key);
+    DES ();
     void set_message(string &message);
 
     string get_message();
