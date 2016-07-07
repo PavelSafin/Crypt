@@ -3,5 +3,5 @@ project(DES)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES DES.cpp main.cpp)
+set(SOURCE_FILES DES.cpp main.cpp Interpreter.cpp Interpreter.h)
 add_executable(DES ${SOURCE_FILES})

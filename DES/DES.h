@@ -7,7 +7,6 @@ using namespace std;
 class DES {
 public:
     DES (string &key);
-    DES ();
     void set_message(string &message);
 
     string get_message();
@@ -42,6 +41,7 @@ public:
 
     vector<int> next_key(vector<int> &key, int n);
 
+    ~DES();
 private:
     vector<vector<int> > keys;
     string message;

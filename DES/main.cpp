@@ -25,6 +25,8 @@ int main() {
                 des.set_message(message);
 
                 cout << des.encode_message() << endl;
+
+                des.~DES();
             } else {
                 if (command == "help") {
                     cout << "encode: Crypt your message" << endl
