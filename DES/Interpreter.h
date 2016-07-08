@@ -17,7 +17,7 @@ public:
     void launch();
 
 private:
-//    std::unordered_map <std::string, OperationType > operations;
+    std::unordered_map <std::string, OperationType > operations;
 };
 
 

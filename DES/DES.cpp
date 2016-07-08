@@ -809,3 +809,8 @@ string DES::encode_message() {
     string str(en_message.begin(), en_message.end());
     return str;
 }
+
+string DES::decode_message() {
+    reverse(keys.begin(), keys.end());
+    return encode_message();
+}
