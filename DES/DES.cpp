@@ -1,5 +1,7 @@
 #include "DES.h"
 
+
+DES::DES() { }
 DES::DES(string &key) {
     set_key(key);
     generate_keys();

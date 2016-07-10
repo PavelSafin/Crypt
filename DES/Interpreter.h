@@ -14,7 +14,7 @@ public:
         HELP,
         EXIT,
     };
-    void launch();
+    int run();
 
 private:
     std::unordered_map <std::string, OperationType > operations;
