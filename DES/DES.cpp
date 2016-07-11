@@ -4,7 +4,6 @@
 DES::DES() { }
 DES::DES(string &key) {
     set_key(key);
-    generate_keys();
 }
 
 DES::~DES() { }
@@ -19,6 +18,7 @@ string DES::get_message() {
 
 void DES::set_key(string &key) {
     this->key = key;
+    generate_keys();
 }
 
 void DES::generate_keys() {

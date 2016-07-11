@@ -35,7 +35,8 @@ int Interpreter::run() {
 
                 cout << des.encode_message() << endl;
                 break;
-
+            case DECODE:
+                break;
             case EXIT:
                 std::cout << "Exit from interpreter";
                 des.~DES();
