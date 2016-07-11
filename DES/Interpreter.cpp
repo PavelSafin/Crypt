@@ -12,7 +12,6 @@ Interpreter::Interpreter() {
 }
 
 int Interpreter::run() {
-    DES des;
     string key;
     string message;
 
@@ -23,6 +22,7 @@ int Interpreter::run() {
 
         switch (operations[command]) {
             case ENCODE:
+                DES des;
 
                 cout << "Please enter password (64-bit number)" << endl;
                 cin >> key;
@@ -34,12 +34,13 @@ int Interpreter::run() {
                 des.set_message(message);
 
                 cout << des.encode_message() << endl;
+                des.~DES();
                 break;
             case DECODE:
+                
                 break;
             case EXIT:
                 std::cout << "Exit from interpreter";
-                des.~DES();
                 return 0;
             case HELP:
                 std::cout << "encode: Crypt your message" << std::endl
