@@ -780,6 +780,7 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
 
 string DES::encode_message() {
     vector<char> en_message;
+    vector <vector <int> > crypt_blocks;
 
     for (int i = 0; i < this->message.size(); i += 8) {
         vector<int> block(64);
@@ -795,7 +796,30 @@ string DES::encode_message() {
 
         crypt(block, this->keys);
 
-//        cryptBlock.push_back(block);
+        crypt_blocks.push_back(block);
+
+        for (int q = 0; q < 64; q += 8) {
+
+            vector<int> t;
+            for (int j = q; j < q + 8; ++j) {
+                t.push_back(block[j]);
+            }
+
+            en_message.push_back(char(this->bin_vector_to_char(t)));
+        }
+    }
+
+    string str1(en_message.begin(), en_message.end());
+    cout << str1 << endl;
+
+    reverse(keys.begin(), keys.end());
+    en_message.clear();
+
+    for (int i = 0; i < this->message.size(); i += 8) {
+        vector<int> block = crypt_blocks[0];
+
+        crypt(block, this->keys);
+
 
         for (int q = 0; q < 64; q += 8) {
 
@@ -809,6 +833,8 @@ string DES::encode_message() {
     }
 
     string str(en_message.begin(), en_message.end());
+
+    cout << str << endl;
     return str;
 }
 
