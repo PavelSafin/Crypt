@@ -809,20 +809,18 @@ string DES::encode_message() {
         }
     }
 
-    string str1(en_message.begin(), en_message.end());
-    cout << str1 << endl;
+    cout << string(en_message.begin(), en_message.end()) << endl;
 
     reverse(keys.begin(), keys.end());
     en_message.clear();
 
-    for (int i = 0; i < this->message.size(); i += 8) {
+    for (int i = 0; i < crypt_blocks.size(); ++i) {
         vector<int> block = crypt_blocks[0];
 
         crypt(block, this->keys);
 
 
-        for (int q = 0; q < 64; q += 8) {
-
+        for (int q = 0; q < 64; q += 8) {c
             vector<int> t;
             for (int j = q; j < q + 8; ++j) {
                 t.push_back(block[j]);
@@ -832,10 +830,9 @@ string DES::encode_message() {
         }
     }
 
-    string str(en_message.begin(), en_message.end());
-
-    cout << str << endl;
-    return str;
+    cout << string(en_message.begin(), en_message.end()) << endl;
+//    return str;
+    return 0;
 }
 
 string DES::decode_message() {
