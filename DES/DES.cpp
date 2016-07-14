@@ -2,6 +2,7 @@
 
 
 DES::DES() { }
+
 DES::DES(string &key) {
     set_key(key);
 }
@@ -34,7 +35,7 @@ void DES::generate_keys() {
                   21, 13, 5, 28, 20, 12, 4};
 
     for (int i = 0; i < 64; ++i)
-        this->keys[0].push_back(this->key[i] - 48);
+        this->keys[0].push_back(rand() % 2);
 
     int size = 0;
     vector<int> m(this->keys[0]);
@@ -780,23 +781,23 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
 
 string DES::encode_message() {
     vector<char> en_message;
-    vector <vector <int> > crypt_blocks;
+    vector<vector<int> > cryptBlock;
 
-    for (int i = 0; i < this->message.size(); i += 8) {
+    for (int i = 0; i < message.size(); i += 8) {
         vector<int> block(64);
 
-        this->char_to_bin_vector(this->message[i], block, 7);
-        this->char_to_bin_vector(this->message[i + 1], block, 15);
-        this->char_to_bin_vector(this->message[i + 2], block, 23);
-        this->char_to_bin_vector(this->message[i + 3], block, 31);
-        this->char_to_bin_vector(this->message[i + 4], block, 39);
-        this->char_to_bin_vector(this->message[i + 5], block, 47);
-        this->char_to_bin_vector(this->message[i + 6], block, 55);
-        this->char_to_bin_vector(this->message[i + 7], block, 63);
+        char_to_bin_vector(message[i], block, 7);
+        char_to_bin_vector(message[i + 1], block, 15);
+        char_to_bin_vector(message[i + 2], block, 23);
+        char_to_bin_vector(message[i + 3], block, 31);
+        char_to_bin_vector(message[i + 4], block, 39);
+        char_to_bin_vector(message[i + 5], block, 47);
+        char_to_bin_vector(message[i + 6], block, 55);
+        char_to_bin_vector(message[i + 7], block, 63);
 
-        crypt(block, this->keys);
+        crypt(block, keys);
 
-        crypt_blocks.push_back(block);
+        cryptBlock.push_back(block);
 
         for (int q = 0; q < 64; q += 8) {
 
@@ -804,35 +805,32 @@ string DES::encode_message() {
             for (int j = q; j < q + 8; ++j) {
                 t.push_back(block[j]);
             }
+            //vector <int> t (block.begin() + i, block.begin() + i + 8);
 
-            en_message.push_back(char(this->bin_vector_to_char(t)));
+            cout << char(bin_vector_to_char(t));
         }
     }
 
-    cout << string(en_message.begin(), en_message.end()) << endl;
+    cout << endl;
+    reverse(keys.begin() + 1, keys.end());
 
-    reverse(keys.begin(), keys.end());
-    en_message.clear();
+    for (int i = 0; i < cryptBlock.size(); ++i) {
+        vector<int> block = cryptBlock[i];
 
-    for (int i = 0; i < crypt_blocks.size(); ++i) {
-        vector<int> block = crypt_blocks[0];
+        crypt(block, keys);
 
-        crypt(block, this->keys);
+        for (int q = 0; q < 64; q += 8) {
 
-
-        for (int q = 0; q < 64; q += 8) {c
             vector<int> t;
             for (int j = q; j < q + 8; ++j) {
                 t.push_back(block[j]);
             }
+            //vector <int> t (block.begin() + i, block.begin() + i + 8);
 
-            en_message.push_back(char(this->bin_vector_to_char(t)));
+            cout << char(bin_vector_to_char(t));
         }
     }
-
-    cout << string(en_message.begin(), en_message.end()) << endl;
-//    return str;
-    return 0;
+    return "0";
 }
 
 string DES::decode_message() {

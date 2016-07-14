@@ -34,8 +34,8 @@ int Interpreter::run() {
                 des.set_key(key);
                 des.set_message(message);
 
+                des.encode_message();
 
-                en_message = des.encode_message();
 
                 break;
             case DECODE:
