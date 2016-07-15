@@ -21,6 +21,7 @@ int Interpreter::run() {
         string command;
         cout << ">>> ";
         cin >> command;
+        cout << operations[command] << endl;
 
         switch (operations[command]) {
             case ENCODE:
@@ -34,7 +35,7 @@ int Interpreter::run() {
                 des.set_key(key);
                 des.set_message(message);
 
-                des.encode_message();
+                cout << des.encode_message() << endl;
 
 
                 break;
@@ -42,7 +43,7 @@ int Interpreter::run() {
                 cout << "Please enter password (64-bit number)" << endl;
                 cin >> key;
 
-                cout << "Please enter message" << std::endl;
+                cout << "Please enter message" << endl;
                 cin >> message;
 
                 des.set_key(key);

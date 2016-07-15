@@ -810,24 +810,6 @@ string DES::encode_message() {
         }
     }
 
-//    cout << endl;
-//    reverse(keys.begin() + 1, keys.end());
-
-//    for (int i = 0; i < cryptBlock.size(); ++i) {
-//        vector<int> block = cryptBlock[i];
-//
-//        crypt(block, keys);
-//
-//        for (int q = 0; q < 64; q += 8) {
-//
-//            vector<int> t;
-//            for (int j = q; j < q + 8; ++j) {
-//                t.push_back(block[j]);
-//            }
-//
-//            cout << char(bin_vector_to_char(t));
-//        }
-//    }
     return string(en_message.begin(), en_message.end());
 }
 
