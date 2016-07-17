@@ -781,7 +781,7 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
 
 string DES::encode_message() {
     vector<char> en_message;
-    vector<vector<int> > cryptBlock;
+//    vector<vector<int> > cryptBlock;
 
     for (int i = 0; i < message.size(); i += 8) {
         vector<int> block(64);
@@ -797,7 +797,7 @@ string DES::encode_message() {
 
         crypt(block, keys);
 
-        cryptBlock.push_back(block);
+//        cryptBlock.push_back(block);
 
         for (int q = 0; q < 64; q += 8) {
 
