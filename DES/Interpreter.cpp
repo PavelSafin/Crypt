@@ -11,45 +11,55 @@ Interpreter::Interpreter() {
     operations.insert(std::make_pair<std::string, OperationType>("help", HELP));
 }
 
+static std::vector<char> ReadAllBytes(char const *filename) {
+    ifstream ifs(filename, ios::binary | ios::ate);
+    ifstream::pos_type pos = ifs.tellg();
+
+    std::vector<char> result(pos);
+
+    ifs.seekg(0, ios::beg);
+    ifs.read(&result[0], pos);
+
+    return result;
+}
+
 int Interpreter::run() {
+    ofstream out("des.out");
     DES des;
+    DES des1;
     string key;
-    string message;
-    string en_message;
+    vector <char> message;
+    string temp;
 
     while (true) {
         string command;
         cout << ">>> ";
         cin >> command;
-        cout << operations[command] << endl;
 
         switch (operations[command]) {
             case ENCODE:
-
                 cout << "Please enter password (64-bit number)" << endl;
                 cin >> key;
 
-                cout << "Please enter message" << std::endl;
-                cin >> message;
+                message = ReadAllBytes("des.in");
+                temp = string(message.begin(), message.end());
 
                 des.set_key(key);
-                des.set_message(message);
+                des.set_message(temp);
 
-                cout << des.encode_message() << endl;
-
-
+                out << des.encode_message() << endl;
                 break;
             case DECODE:
                 cout << "Please enter password (64-bit number)" << endl;
                 cin >> key;
 
-                cout << "Please enter message" << endl;
-                cin >> message;
+                message = ReadAllBytes("des.in");
+                temp = string(message.begin(), message.end());
 
-                des.set_key(key);
-                des.set_message(message);
+                des1.set_key(key);
+                des1.set_message(temp);
 
-                cout << des.decode_message() << endl;
+                cout << des1.decode_message() << endl;
                 break;
             case EXIT:
                 std::cout << "Exit from interpreter";
@@ -65,16 +75,4 @@ int Interpreter::run() {
                 break;
         }
     }
-}
-
-static std::vector<char> ReadAllBytes(char const *filename) {
-    ifstream ifs(filename, ios::binary | ios::ate);
-    ifstream::pos_type pos = ifs.tellg();
-
-    std::vector<char> result(pos);
-
-    ifs.seekg(0, ios::beg);
-    ifs.read(&result[0], pos);
-
-    return result;
 }

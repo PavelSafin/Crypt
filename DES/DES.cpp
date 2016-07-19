@@ -35,7 +35,7 @@ void DES::generate_keys() {
                   21, 13, 5, 28, 20, 12, 4};
 
     for (int i = 0; i < 64; ++i)
-        this->keys[0].push_back(rand() % 2);
+        this->keys[0].push_back(this->key[i] - 48);
 
     int size = 0;
     vector<int> m(this->keys[0]);
@@ -781,7 +781,6 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
 
 string DES::encode_message() {
     vector<char> en_message;
-//    vector<vector<int> > cryptBlock;
 
     for (int i = 0; i < message.size(); i += 8) {
         vector<int> block(64);
@@ -796,8 +795,6 @@ string DES::encode_message() {
         char_to_bin_vector(message[i + 7], block, 63);
 
         crypt(block, keys);
-
-//        cryptBlock.push_back(block);
 
         for (int q = 0; q < 64; q += 8) {
 
@@ -814,6 +811,6 @@ string DES::encode_message() {
 }
 
 string DES::decode_message() {
-    reverse(keys.begin() + 1, keys.end());
+    reverse(this->keys.begin() + 1, this->keys.end());
     return encode_message();
 }
