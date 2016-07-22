@@ -9,7 +9,7 @@ public class Main {
     }
 
     static class Interpreter {
-        public void run (InputReader in) throws IOException {
+        public void run(InputReader in) throws IOException {
             Coder coder = new Coder(9, 5, 31);
 
             while (true) {

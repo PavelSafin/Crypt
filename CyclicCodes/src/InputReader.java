@@ -14,7 +14,7 @@ public class InputReader {
     }
 
     public String next() {
-        while (tokenizer == null || !tokenizer.hasMoreTokens() ) {
+        while (tokenizer == null || !tokenizer.hasMoreTokens()) {
             try {
                 tokenizer = new StringTokenizer(reader.readLine());
             } catch (IOException e) {
@@ -24,7 +24,7 @@ public class InputReader {
         return tokenizer.nextToken();
     }
 
-    public int nextInt () {
+    public int nextInt() {
         return Integer.parseInt(next());
     }
 }

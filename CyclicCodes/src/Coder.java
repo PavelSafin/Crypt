@@ -11,10 +11,10 @@ public class Coder {
     }
 
     public int getShift(int a) {
-        return (int)(Math.log(a) / Math.log(2)) + 1;
+        return (int) (Math.log(a) / Math.log(2)) + 1;
     }
 
-    private Pair getDivideAndMod (int a, int b, int k) {
+    private Pair getDivideAndMod(int a, int b, int k) {
         int dd = 0;
         while (a / b != 0) {
             int shift = (getShift(a) - k);
