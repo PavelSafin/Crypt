@@ -814,3 +814,6 @@ string DES::decode_message() {
     reverse(this->keys.begin() + 1, this->keys.end());
     return encode_message();
 }
+
+
+//1111111100000000111111110000000011111111000000001111111100000000
