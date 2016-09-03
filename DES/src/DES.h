@@ -2,17 +2,19 @@
 #include <vector>
 #include <algorithm>
 
+#define KEY_LENGTH 64
+
 using namespace std;
 
 class DES {
 public:
     DES ();
-    DES (string &key);
+    DES (long long key);
     void set_message(string &message);
 
     string get_message();
 
-    void set_key(string &key);
+    void set_key(long long key);
 
     string encode_message();
 
@@ -46,5 +48,5 @@ public:
 private:
     vector<vector<int> > keys;
     string message;
-    string key;
+    long long key;
 };

@@ -3,6 +3,6 @@ project(DES)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES DES.cpp main.cpp)
-set(HEADER DES.h)
+set(SOURCE_FILES src/DES.cpp src/main.cpp)
+set(HEADER src/DES.h)
 add_executable(DES ${SOURCE_FILES})
