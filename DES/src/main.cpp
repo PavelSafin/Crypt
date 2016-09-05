@@ -1,3 +1,4 @@
+#include <iostream>
 #include <fstream>
 #include "DES.h"
 
@@ -8,8 +9,10 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
+    string out_file = string(argv[1]) + ".out";
+
     ifstream in(argv[1]);
-    ofstream out("des.out");
+    ofstream out(out_file);
 
     if (!in.is_open()) {
         cerr << "File doesn't exist." << endl;
