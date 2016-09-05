@@ -26,9 +26,9 @@ public:
 
     void initial_permutation(vector<int> &m);
 
-    void split(vector<int> &left, vector<int> &right, vector<int> &target, int size);
+    void split(vector<int> &left, vector<int> &right, vector<int> &target, size_t size);
 
-    void foo(vector<int> &subblock, vector<int> &key);
+    void s_transformation(vector<int> &subblock, vector<int> &key);
 
     void merge(vector<int> &left, vector<int> &right, vector<int> &target, int size);
 

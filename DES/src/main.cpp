@@ -48,8 +48,6 @@ int main(int argc, char *argv[]) {
     des.set_message(s);
 
     out << s << endl;
-    out << des.decode_message() << endl;
-
 
     //des.~DES();
 

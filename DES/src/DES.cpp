@@ -1,6 +1,5 @@
 #include "DES.h"
 
-
 DES::DES() { }
 
 DES::DES(long long key) {
@@ -10,6 +9,7 @@ DES::DES(long long key) {
 DES::~DES() { }
 
 void DES::set_message(string &message) {
+//    size_t l = 8 - (message.size() % 8);
     this->message = message;
 }
 
@@ -58,12 +58,9 @@ void DES::generate_keys() {
     this->keys[16] = this->keys[0];
 }
 
-void DES::split(vector<int> &left, vector<int> &right, vector<int> &target, int size) {
-    for (int i = 0; i < size; ++i) {
-        left[i] = target[i + size];
-        right[i] = target[i];
-    }
-
+void DES::split(vector<int> &left, vector<int> &right, vector<int> &target, const size_t size) {
+    left.assign(target.begin() + size, target.end());
+    right.assign(target.begin(), target.begin() + size);
 }
 
 void DES::merge(vector<int> &left, vector<int> &right, vector<int> &target, int size) {
@@ -172,7 +169,7 @@ void DES::expand(vector<int> &m) {
     m = em;
 }
 
-void DES::foo(vector<int> &subblock, vector<int> &key) {
+void DES::s_transformation(vector<int> &subblock, vector<int> &key) {
     expand(subblock);
     for (int i = 0; i < 48; ++i)
         subblock[i] ^= key[i];
@@ -184,22 +181,22 @@ void DES::foo(vector<int> &subblock, vector<int> &key) {
     S[0][0][4] = 2;     S[0][0][5] = 15;    S[0][0][6] = 11;    S[0][0][7] = 8;
     S[0][0][8] = 3;     S[0][0][9] = 10;    S[0][0][10] = 6;    S[0][0][11] = 12;
     S[0][0][12] = 5;    S[0][0][13] = 9;    S[0][0][14] = 0;    S[0][0][15] = 7;
-    
+
     S[0][1][0] = 0;     S[0][1][1] = 15;    S[0][1][2] = 7;     S[0][1][3] = 4;
     S[0][1][4] = 14;    S[0][1][5] = 2;     S[0][1][6] = 13;    S[0][1][7] = 1;
     S[0][1][8] = 10;    S[0][1][9] = 6;     S[0][1][10] = 12;   S[0][1][11] = 11;
     S[0][1][12] = 9;    S[0][1][13] = 5;    S[0][1][14] = 3;    S[0][1][15] = 8;
-    
+
     S[0][2][0] = 4;     S[0][2][1] = 1;     S[0][2][2] = 14;    S[0][2][3] = 8;
     S[0][2][4] = 13;    S[0][2][5] = 6;     S[0][2][6] = 2;     S[0][2][7] = 11;
     S[0][2][8] = 15;    S[0][2][9] = 12;    S[0][2][10] = 9;    S[0][2][11] = 7;
     S[0][2][12] = 3;    S[0][2][13] = 10;   S[0][2][14] = 5;    S[0][2][15] = 0;
-    
+
     S[0][3][0] = 15;    S[0][3][1] = 12;    S[0][3][2] = 8;     S[0][3][3] = 2;
     S[0][3][4] = 4;     S[0][3][5] = 9;     S[0][3][6] = 1;     S[0][3][7] = 7;
     S[0][3][8] = 5;     S[0][3][9] = 11;    S[0][3][10] = 3;    S[0][3][11] = 14;
     S[0][3][12] = 10;   S[0][3][13] = 0;    S[0][3][14] = 6;    S[0][3][15] = 13;
-    
+
     S[1][0][0] = 15;    S[1][0][1] = 1;     S[1][0][2] = 8;     S[1][0][3] = 14;
     S[1][0][4] = 6;     S[1][0][5] = 11;    S[1][0][6] = 3;     S[1][0][7] = 4;
     S[1][0][8] = 9;     S[1][0][9] = 7;     S[1][0][10] = 2;    S[1][0][11] = 13;
@@ -339,7 +336,7 @@ void DES::foo(vector<int> &subblock, vector<int> &key) {
     S[7][3][4] = 4;     S[7][3][5] = 10;    S[7][3][6] = 8;     S[7][3][7] = 13;
     S[7][3][8] = 15;    S[7][3][9] = 12;    S[7][3][10] = 9;    S[7][3][11] = 0;
     S[7][3][12] = 3;    S[7][3][13] = 5;    S[7][3][14] = 6;    S[7][3][15] = 11;
-    
+
     int l = 0;
 
     for (int i = 0; i < 8; ++i) {
@@ -388,7 +385,7 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
     vector<int> temp(64);
     for (int i = 1; i <= 16; i++) {
         temp = right;
-        this->foo(temp, keys[i]);
+        this->s_transformation(temp, keys[i]);
         for (int j = 0; j < 32; ++j)
             temp[j] ^= left[j];
 
