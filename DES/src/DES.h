@@ -26,11 +26,11 @@ public:
 
     void initial_permutation(vector<int> &m);
 
-    void split(vector<int> &left, vector<int> &right, vector<int> &target, size_t size);
+    void split_vector(vector<int> &left, vector<int> &right, vector<int> &target, size_t size);
 
     void s_transformation(vector<int> &subblock, vector<int> &key);
 
-    void merge(vector<int> &left, vector<int> &right, vector<int> &target, int size);
+    void merge_vectors(vector<int> &left, vector<int> &right, vector<int> &target, int size);
 
     void final_permutation(vector<int> &m);
 

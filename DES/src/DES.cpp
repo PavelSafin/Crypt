@@ -1,4 +1,6 @@
 #include "DES.h"
+#include <bitset>
+#include <iostream>
 
 DES::DES() { }
 
@@ -58,16 +60,14 @@ void DES::generate_keys() {
     this->keys[16] = this->keys[0];
 }
 
-void DES::split(vector<int> &left, vector<int> &right, vector<int> &target, const size_t size) {
+void DES::split_vector(vector<int> &left, vector<int> &right, vector<int> &target, const size_t size) {
     left.assign(target.begin() + size, target.end());
     right.assign(target.begin(), target.begin() + size);
 }
 
-void DES::merge(vector<int> &left, vector<int> &right, vector<int> &target, int size) {
-    for (int i = 0; i < size; ++i) {
-        target[i + size] = left[i];
-        target[i] = right[i];
-    }
+void DES::merge_vectors(vector<int> &left, vector<int> &right, vector<int> &target, int size) {
+    target.insert(target.begin(), right.begin(), right.end());
+    target.insert(target.end(), left.begin(), left.end());
 }
 
 int DES::bin_vector_to_char(vector<int> &m) {
@@ -79,10 +79,20 @@ int DES::bin_vector_to_char(vector<int> &m) {
 }
 
 void DES::char_to_bin_vector(char c, vector<int> &m, int l) {
+//    cout << bitset<8>(c) << endl;
     for (int i = 7; i >= 0; --i) {
         m[l] = c & 1;
         c >>= 1;
         --l;
+    }
+}
+
+void stobv (string &block_message, vector<int> &block) {
+    for (size_t i = 0; i < block_message.size(); ++i) {
+        bitset<8> bs(block_message.c_str()[i]);
+        for (int j = 0; j < bs.size(); ++j) {
+
+        }
     }
 }
 
@@ -108,12 +118,12 @@ vector<int> DES::next_key(vector<int> &key, int n) {
     vector<int> d(28);
     vector<int> target(key);
 
-    this->split(d, c, target, 28);
+    this->split_vector(d, c, target, 28);
 
     rotate(c.begin(), c.begin() + shift[n - 1], c.end());
     rotate(d.begin(), d.begin() + shift[n - 1], d.end());
 
-    this->merge(d, c, target, 28);
+    this->merge_vectors(d, c, target, 28);
     this->key_permutation(key);
 
     return target;
@@ -380,7 +390,7 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
     vector<int> right(64);
 
     this->initial_permutation(block);
-    this->split(right, left, block, 32);
+    this->split_vector(right, left, block, 32);
 
     vector<int> temp(64);
     for (int i = 1; i <= 16; i++) {
@@ -393,7 +403,7 @@ void DES::crypt(vector<int> &block, vector<vector<int> > &keys) {
         right = temp;
     }
 
-    this->merge(left, right, block, 32);
+    this->merge_vectors(left, right, block, 32);
     this->final_permutation(block);
 }
 
