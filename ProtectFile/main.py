@@ -61,6 +61,5 @@ def main ():
 			password = input('please enter password\n')
 			unlock_file(path, password)
 
-
 if __name__ == "__main__":
     main()

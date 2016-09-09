@@ -91,7 +91,7 @@ void stobv (string &block_message, vector<int> &block) {
     for (size_t i = 0; i < block_message.size(); ++i) {
         bitset<8> bs(block_message.c_str()[i]);
         for (int j = 0; j < bs.size(); ++j) {
-
+            block.push_back(int (bs[j]));
         }
     }
 }
